@@ -1,0 +1,3 @@
+module components
+Point 1.0 Point.qml
+InputCoord 1.0 InputCoord.qml
