@@ -16,6 +16,7 @@ Item {
     Component.onCompleted: {
         point.x = parseFloat(x_input.textField.text);
         point.y = parseFloat(y_input.textField.text);
+        fireValueChanged();
     }
 
     Rectangle {
