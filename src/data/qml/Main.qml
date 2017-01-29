@@ -33,7 +33,6 @@ Window {
                 ctx.fillStyle = Qt.rgba(1,1,1,1);
                 ctx.fillRect(0,0,width,height);
 
-
             // grid
 
                 ctx.beginPath();
@@ -63,12 +62,12 @@ Window {
                 ctx.fillStyle = Qt.rgba(0, 1, 0, 1);
 
                 var pixels = imageModel.pixelData;
+                var w = ((canvas.width / 2.0) * r) - 2;
+                var h = ((canvas.height / 2.0) * r) - 2;
                 for (var i = 0; i < pixels.length; ++i) {
                     var x = pixels[i].x;
                     var y = pixels[i].y;
                     var p = pixelToScreen(x, y);
-                    var w = ((canvas.width / 2.0) * r) - 2;
-                    var h = ((canvas.height / 2.0) * r) - 2;
                     ctx.fillRect(p.x-w/2, p.y-h/2, w, h);
                 }
 
@@ -159,15 +158,15 @@ Window {
         return Qt.vector2d(screen_x,screen_y);
     }
 
-    function pixelToScreen(i, j) {
+    function pixelToScreen(x, y) {
         var r = imageModel.resolution;
         var coord = worldToScreen(-1, -1);
         var w = ((canvas.width / 2.0) * r);
         var h = ((canvas.height / 2.0) * r);
         coord.x += w / 2;
         coord.y -= h / 2;
-        coord.x += i * w;
-        coord.y -= j * h;
+        coord.x += x * w;
+        coord.y -= y * h;
         return coord;
     }
 
