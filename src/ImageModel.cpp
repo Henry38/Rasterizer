@@ -102,7 +102,7 @@ void ImageModel::rasterize(qreal x1, qreal y1, qreal x2, qreal y2, qreal x3, qre
     // dimension (in pixels) of bbox
     Vector2 dim((triangle_maxX - triangle_minX) / ri, (triangle_maxY - triangle_minY) / rj);
 
-    // find min position of camera (lower left bottom corner)
+    // min position of camera (lower left bottom corner)
     Real camera_minX = -1;
     Real camera_minY = -1;
 
@@ -118,30 +118,30 @@ void ImageModel::rasterize(qreal x1, qreal y1, qreal x2, qreal y2, qreal x3, qre
             Vector2 P(cx, cy);
 
             // barycentric coordinates
-            Real area_a = determinant(proj_p2, proj_p3, P);
-            Real area_b = determinant(proj_p3, proj_p1, P);
-            Real area_c = determinant(proj_p1, proj_p2, P);
+            Real area_p1 = determinant(proj_p2, proj_p3, P);
+            Real area_p2 = determinant(proj_p3, proj_p1, P);
+            Real area_p3 = determinant(proj_p1, proj_p2, P);
 
-            if ((area_a >= epsilon && area_b >= epsilon && area_c >= epsilon)) {
+            if ((area_p1 >= epsilon && area_p2 >= epsilon && area_p3 >= epsilon)) {
                 addPixel(myPixelData, ti+i, tj+j);
 
-            } else if (std::abs(area_a) < epsilon || std::abs(area_b) < epsilon || std::abs(area_c) < epsilon) {
+            } else if (std::abs(area_p1) < epsilon || std::abs(area_p2) < epsilon || std::abs(area_p3) < epsilon) {
                 // test for edge/corner
 
                 // one barycentric coordinate is equal to 0
-                if (std::abs(area_a) < epsilon && area_b >= epsilon && area_c >= epsilon) {
+                if (std::abs(area_p1) < epsilon && area_p2 >= epsilon && area_p3 >= epsilon) {
                     // top-left rule on BC
                     if (isLeftorTopEdge(proj_p2, proj_p3)) {
                         addPixel(myPixelData, ti+i, tj+j);
                     }
                 }
-                if (area_a >= epsilon && std::abs(area_b) < epsilon && area_c >= epsilon) {
+                if (area_p1 >= epsilon && std::abs(area_p2) < epsilon && area_p3 >= epsilon) {
                     // top-left rule on CA
                     if (isLeftorTopEdge(proj_p3, proj_p1)) {
                         addPixel(myPixelData, ti+i, tj+j);
                     }
                 }
-                if (area_a >= epsilon && area_b >= epsilon && std::abs(area_c) < epsilon) {
+                if (area_p1 >= epsilon && area_p2 >= epsilon && std::abs(area_p3) < epsilon) {
                     // top-left rule on AB
                     if (isLeftorTopEdge(proj_p1, proj_p2)) {
                         addPixel(myPixelData, ti+i, tj+j);
@@ -149,19 +149,19 @@ void ImageModel::rasterize(qreal x1, qreal y1, qreal x2, qreal y2, qreal x3, qre
                 }
 
                 // two barycentrics coordinates are equal to 0
-                if (std::abs(area_a) < epsilon && std::abs(area_b) < epsilon && area_c >= epsilon) {
+                if (std::abs(area_p1) < epsilon && std::abs(area_p2) < epsilon && area_p3 >= epsilon) {
                     // top-left rule on BC and CA
                     if (isLeftorTopEdge(proj_p2, proj_p3) && isLeftorTopEdge(proj_p3, proj_p1)) {
                         addPixel(myPixelData, ti+i, tj+j);
                     }
                 }
-                if (std::abs(area_a) < epsilon && area_b >= epsilon && std::abs(area_c) < epsilon) {
+                if (std::abs(area_p1) < epsilon && area_p2 >= epsilon && std::abs(area_p3) < epsilon) {
                     // top-left rule on AB and BC
                     if (isLeftorTopEdge(proj_p1, proj_p2) && isLeftorTopEdge(proj_p2, proj_p3)) {
                         addPixel(myPixelData, ti+i, tj+j);
                     }
                 }
-                if (area_a >= epsilon && std::abs(area_b) < epsilon && std::abs(area_c) < epsilon) {
+                if (area_p1 >= epsilon && std::abs(area_p2) < epsilon && std::abs(area_p3) < epsilon) {
                     // top-left rule on CA and AB
                     if (isLeftorTopEdge(proj_p3, proj_p1) && isLeftorTopEdge(proj_p1, proj_p2)) {
                         addPixel(myPixelData, ti+i, tj+j);
@@ -169,7 +169,7 @@ void ImageModel::rasterize(qreal x1, qreal y1, qreal x2, qreal y2, qreal x3, qre
                 }
 
                 // three barycentrics coordinates are equal to 0, no pixel covered ...
-                if (std::abs(area_a) < epsilon && std::abs(area_b) < epsilon && std::abs(area_c) < epsilon) {
+                if (std::abs(area_p1) < epsilon && std::abs(area_p2) < epsilon && std::abs(area_p3) < epsilon) {
                 }
             }
         }
