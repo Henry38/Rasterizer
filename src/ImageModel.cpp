@@ -68,9 +68,6 @@ void ImageModel::rasterize(qreal x1, qreal y1, qreal x2, qreal y2, qreal x3, qre
 {
     myPixelData.clear();
 
-//    myPixelData.push_back(QVector2D(4,1));
-//    myPixelData.push_back(QVector2D(2,0));
-
     Real epsilon = (Real) 0.0;
 
     float ri = myResolution;
@@ -106,18 +103,18 @@ void ImageModel::rasterize(qreal x1, qreal y1, qreal x2, qreal y2, qreal x3, qre
     Real camera_minX = -1;
     Real camera_minY = -1;
 
-    // offset (in pixels) between LDI bbox and triangle bbox
+    // offset (in pixels) between camera bbox and triangle bbox
     unsigned int ti = std::round(( triangle_minX - camera_minX ) / ri);
     unsigned int tj = std::round(( triangle_minY - camera_minY ) / rj);
 
     for (unsigned int j = 0; j < dim[1]; ++j) {
         for (unsigned int i = 0; i < dim[0]; ++i) {
-            // center of voxel (i,j)
+            // center of pixel (i,j)
             Real cx = triangle_minX + ((i + 0.5) * ri);
             Real cy = triangle_minY + ((j + 0.5) * rj);
             Vector2 P(cx, cy);
 
-            // barycentric coordinates
+            // barycentrics coordinates
             Real area_p1 = determinant(proj_p2, proj_p3, P);
             Real area_p2 = determinant(proj_p3, proj_p1, P);
             Real area_p3 = determinant(proj_p1, proj_p2, P);

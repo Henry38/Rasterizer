@@ -4,11 +4,8 @@
 // Qt
 #include <QList>
 #include <QObject>
-#include <QVector2D>
-
-// Qml
-#include <QQmlListProperty>
 #include <QVariant>
+#include <QVector2D>
 
 class ImageModel : public QObject
 {
