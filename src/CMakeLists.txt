@@ -17,10 +17,12 @@ set(QML_FILES
     data/qml/Main.qml
     data/qml/components/qmldir
     data/qml/components/Point.qml
+    data/qml/components/SpritePoint.qml
     data/qml/components/InputCoord.qml
 )
 
 set(QRC_FILES
+    data/ressource.qrc
     data/qml/qml.qrc
 )
 

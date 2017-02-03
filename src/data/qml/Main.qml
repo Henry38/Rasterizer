@@ -35,6 +35,8 @@ Window {
             Layout.fillWidth: true
             Layout.fillHeight: true
 
+            Component.onCompleted: root.update()
+
             onPaint: {
                 var ctx = canvas.getContext('2d');
                 ctx.fillStyle = Qt.rgba(1,1,1,1);
@@ -117,6 +119,45 @@ Window {
                 ctx.lineTo(p1.x,p1.y);
 
                 ctx.stroke();
+            }
+
+            SpritePoint {
+                id: imgPoint1
+
+                Connections {
+                    target: canvas
+                    onPaint: {
+                        var v = worldToScreen(point1.x(),point1.y());
+                        imgPoint1.x = v.x - imgPoint1.width/2;
+                        imgPoint1.y = v.y - imgPoint1.height/2;
+                    }
+                }
+            }
+
+            SpritePoint {
+                id: imgPoint2
+
+                Connections {
+                    target: canvas
+                    onPaint: {
+                        var v = worldToScreen(point2.x(),point2.y());
+                        imgPoint2.x = v.x - imgPoint2.width/2;
+                        imgPoint2.y = v.y - imgPoint2.height/2;
+                    }
+                }
+            }
+
+            SpritePoint {
+                id: imgPoint3
+
+                Connections {
+                    target: canvas
+                    onPaint: {
+                        var v = worldToScreen(point3.x(),point3.y());
+                        imgPoint3.x = v.x - imgPoint3.width/2;
+                        imgPoint3.y = v.y - imgPoint3.height/2;
+                    }
+                }
             }
         }
 

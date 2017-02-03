@@ -1,3 +1,4 @@
 module components
 Point 1.0 Point.qml
+SpritePoint 1.0 SpritePoint.qml
 InputCoord 1.0 InputCoord.qml

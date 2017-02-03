@@ -4,5 +4,6 @@
         <file>components/Point.qml</file>
         <file>components/InputCoord.qml</file>
         <file>components/qmldir</file>
+        <file>components/SpritePoint.qml</file>
     </qresource>
 </RCC>
