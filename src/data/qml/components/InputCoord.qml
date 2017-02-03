@@ -17,7 +17,7 @@ RowLayout {
 
     TextField {
         id: textField
-        text: random()
+        text: ""
 
         validator: DoubleValidator {
             bottom: min;
@@ -29,12 +29,5 @@ RowLayout {
         Layout.preferredWidth: 96
         Layout.preferredHeight: 24
         Layout.alignment: Qt.AlignHCenter
-    }
-
-    function random() {
-        var decimal = 3;
-        var pow = Math.pow(10, decimal);
-        var num = min + Math.random() * (max - min);
-        return Math.round(num * pow) / pow;
     }
 }
