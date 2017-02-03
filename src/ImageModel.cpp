@@ -99,13 +99,9 @@ void ImageModel::rasterize(qreal x1, qreal y1, qreal x2, qreal y2, qreal x3, qre
     // dimension (in pixels) of bbox
     Vector2 dim((triangle_maxX - triangle_minX) / ri, (triangle_maxY - triangle_minY) / rj);
 
-    // min position of camera (lower left bottom corner)
-    Real camera_minX = -1;
-    Real camera_minY = -1;
-
-    // offset (in pixels) between camera bbox and triangle bbox
-    unsigned int ti = std::round(( triangle_minX - camera_minX ) / ri);
-    unsigned int tj = std::round(( triangle_minY - camera_minY ) / rj);
+    // offset (in pixels) of triangle bbox
+    unsigned int ti = std::round( triangle_minX / ri );
+    unsigned int tj = std::round( triangle_minY / rj );
 
     for (unsigned int j = 0; j < dim[1]; ++j) {
         for (unsigned int i = 0; i < dim[0]; ++i) {

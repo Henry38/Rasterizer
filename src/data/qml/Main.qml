@@ -19,6 +19,13 @@ Window {
         id: imageModel
     }
 
+    signal update();
+
+    onUpdate: {
+        imageModel.rasterize(point1.x(), point1.y(), point2.x(), point2.y(), point3.x(), point3.y());
+        canvas.requestPaint();
+    }
+
     ColumnLayout {
         anchors.fill: parent
 
@@ -67,7 +74,7 @@ Window {
                 for (var i = 0; i < pixels.length; ++i) {
                     var x = pixels[i].x;
                     var y = pixels[i].y;
-                    var p = pixelToScreen(x, y);
+                    var p = gridToScreen(x, y);
                     ctx.fillRect(p.x-w/2, p.y-h/2, w, h);
                 }
 
@@ -158,20 +165,8 @@ Window {
         return Qt.vector2d(screen_x,screen_y);
     }
 
-    function pixelToScreen(x, y) {
+    function gridToScreen(x, y) {
         var r = imageModel.resolution;
-        var coord = worldToScreen(-1, -1);
-        var w = ((canvas.width / 2.0) * r);
-        var h = ((canvas.height / 2.0) * r);
-        coord.x += w / 2;
-        coord.y -= h / 2;
-        coord.x += x * w;
-        coord.y -= y * h;
-        return coord;
-    }
-
-    function update() {
-        imageModel.rasterize(point1.x(), point1.y(), point2.x(), point2.y(), point3.x(), point3.y());
-        canvas.requestPaint();
+        return worldToScreen((x+0.5)*r, (y+0.5)*r);
     }
 }
