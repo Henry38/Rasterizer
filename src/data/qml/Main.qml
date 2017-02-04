@@ -68,8 +68,6 @@ Window {
 
             // pixel
 
-                ctx.fillStyle = Qt.rgba(0, 1, 0, 1);
-
                 var pixels = imageModel.pixelData;
                 var w = ((canvas.width / 2.0) * r) - 2;
                 var h = ((canvas.height / 2.0) * r) - 2;
@@ -77,7 +75,10 @@ Window {
                     var x = pixels[i].x;
                     var y = pixels[i].y;
                     var p = gridToScreen(x, y);
+                    ctx.fillStyle = Qt.rgba(0, 1, 0, 1);
                     ctx.fillRect(p.x-w/2, p.y-h/2, w, h);
+                    ctx.fillStyle = Qt.rgba(0,0,0, 1);
+                    ctx.fillRect(p.x-1,p.y-1,2,2);
                 }
 
             // axe
