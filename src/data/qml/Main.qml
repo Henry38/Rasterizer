@@ -197,13 +197,15 @@ Window {
     }
 
     function worldToScreen(x, y) {
-        var camera_width = 2;
-        var camera_height = 2;
-        var p = Qt.vector2d((2*x)/camera_width, (2*y)/camera_height);
-
-        var screen_x = (canvas.width / 2.0) + (p.x * (canvas.width / 2.0));
-        var screen_y = (canvas.height / 2.0) - (p.y * (canvas.height / 2.0));
+        var screen_x = (canvas.width / 2.0) + (x * (canvas.width / 2.0));
+        var screen_y = (canvas.height / 2.0) - (y * (canvas.height / 2.0));
         return Qt.vector2d(screen_x,screen_y);
+    }
+
+    function screenToWorld(x, y) {
+        var world_x = (2 * (x / canvas.width)) - 1;
+        var world_y = (2 * (y / canvas.height)) - 1;
+        return Qt.vector2d(world_x,-world_y);
     }
 
     function gridToScreen(x, y) {
