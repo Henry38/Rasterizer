@@ -6,12 +6,18 @@ Item {
     id: root
 
     property string title: ""
-    property vector2d point: Qt.vector2d(random(),random())
+    property vector2d point: Qt.vector2d(0,0)
 
     signal valueChanged();
 
     Layout.fillWidth : true
     Layout.preferredHeight: 100
+
+    Component.onCompleted: {
+        point.x = -1 + Math.random() * 2;
+        point.y = -1 + Math.random() * 2;
+        fireValueChanged();
+    }
 
     Rectangle {
         anchors.fill : parent
@@ -52,16 +58,18 @@ Item {
         }
     }
 
-    function random() {
-        return -1 + Math.random() * 2;
-    }
-
     function x() {
         return point.x;
     }
 
     function y() {
         return point.y;
+    }
+
+    function set(px,py) {
+        point.x = px;
+        point.y = py;
+        fireValueChanged();
     }
 
     function fireValueChanged() {
