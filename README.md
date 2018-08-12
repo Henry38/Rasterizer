@@ -1,3 +1,3 @@
 # Rasterizer
 
-Interactive OpenGL like rasterizer write in C++/QML
+Interactive OpenGL like rasterizer writen in C++/QML
